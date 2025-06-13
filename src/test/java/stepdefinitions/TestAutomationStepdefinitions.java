@@ -10,6 +10,7 @@ import org.openqa.selenium.Keys;
 import pages.TestAutomationPage;
 import utilities.ConfigReader;
 import utilities.Driver;
+import utilities.ReusableMethods;
 
 public class TestAutomationStepdefinitions {
 
@@ -48,7 +49,14 @@ public class TestAutomationStepdefinitions {
         String actualResult = testAutomationPage.searchResultText.getText();
         Assertions.assertEquals(expectedResult, actualResult);
     }
-
+    @When("user searches for {string} in the search box")
+    public void user_searches_for_in_the_search_box(String keyword) {
+        testAutomationPage.searchBox.sendKeys(keyword + Keys.ENTER);
+    }
+    @And("waits for {int} seconds for synchronization")
+    public void waits_for_seconds_for_synchronization(int seconds) {
+        ReusableMethods.wait(seconds);
+    }
     @And("closes the page")
     public void closes_the_page() {
         Driver.quitDriver();
